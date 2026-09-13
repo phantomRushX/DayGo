@@ -1,0 +1,27 @@
+DAYGO — APP BUILD PACKAGE
+
+This package is the current DayGo iPhone-ready app prototype.
+
+Current areas:
+- Home / My Day
+- Tasks
+- Calendar
+- Goals
+- Achievements
+- Profile
+- Customization / themes
+- PWA/iPhone support
+- DayGo logo and icons
+
+Planned next build:
+1. AI Study Assistant
+2. Reminders and notifications
+3. Better data saving/accounts
+4. Habits and streaks
+5. Focus mode
+6. School dashboard
+7. Money tracker
+8. More animations and polished iPhone UI
+9. Proper native iPhone app build
+
+For now, this package is focused on the APP itself. Publishing can be done later.

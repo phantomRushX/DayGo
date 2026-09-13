@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="DayGo">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>DayGo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><img src="daygo-logo.png" alt="DayGo logo"><span>DAYGO</span></div>
+    <nav>
+      <button class="nav active" data-page="home">⌂ <span>My Day</span></button>
+      <button class="nav" data-page="tasks">✓ <span>Tasks</span></button>
+      <button class="nav" data-page="calendar">□ <span>Calendar</span></button>
+      <button class="nav" data-page="goals">☆ <span>Goals</span></button>
+      <button class="nav" data-page="achievements">♛ <span>Achievements</span></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav" data-page="profile">⚙ <span>Profile</span></button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="ios-tip" id="iosTip">
+      <span>📱 Install DayGo on your iPhone: tap <b>Share</b> → <b>Add to Home Screen</b>.</span>
+      <button onclick="document.getElementById('iosTip').remove()">×</button>
+    </div>
+    <header>
+      <div>
+        <p class="eyebrow">YOUR DAY, YOUR WAY</p>
+        <h1 id="pageTitle">Good morning 👋</h1>
+        <p id="date"></p>
+      </div>
+      <div class="header-actions"><button class="install-app" id="installApp" style="display:none">＋ Install</button><button class="customize" onclick="openCustomizer()">✦ Customize</button><button class="add" id="quickAdd">+ Add</button></div>
+    </header>
+
+    <section id="home" class="page active-page">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">TODAY</p>
+          <h2>Let's make today count.</h2>
+          <p>Stay organised, finish your tasks and keep moving toward your goals.</p>
+        </div>
+        <div class="score"><strong id="score">0%</strong><span>day progress</span></div>
+      </div>
+
+      <div class="stats">
+        <div class="card"><span>✓</span><strong id="taskCount">0</strong><small>Tasks left</small></div>
+        <div class="card"><span>🔥</span><strong>5</strong><small>Day streak</small></div>
+        <div class="card"><span>🎯</span><strong>2</strong><small>Active goals</small></div>
+        <div class="card"><span>🏆</span><strong>120</strong><small>XP earned</small></div>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <div class="panel-head"><h3>Today's plan</h3><button class="link" onclick="showPage('tasks')">View all</button></div>
+          <div id="taskList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Up next</h3></div>
+          <div class="event"><b>16:00</b><span>📚 Study Maths</span></div>
+          <div class="event"><b>17:30</b><span>🧹 Clean room</span></div>
+          <div class="event"><b>19:00</b><span>🎮 Free time</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tasks" class="page">
+      <div class="section-head"><div><p class="eyebrow">PRODUCTIVITY</p><h2>Tasks</h2></div><button class="add" onclick="addTask()">+ New task</button></div>
+      <div class="panel"><div id="allTasks"></div></div>
+    </section>
+
+    <section id="calendar" class="page">
+      <div class="section-head"><div><p class="eyebrow">PLAN AHEAD</p><h2>Calendar</h2></div></div>
+      <div class="panel calendar">
+        <div class="calendar-top"><button>‹</button><h3 id="month"></h3><button>›</button></div>
+        <div class="weekdays"><b>Sun</b><b>Mon</b><b>Tue</b><b>Wed</b><b>Thu</b><b>Fri</b><b>Sat</b></div>
+        <div class="days" id="days"></div>
+      </div>
+    </section>
+
+    <section id="goals" class="page">
+      <div class="section-head"><div><p class="eyebrow">KEEP MOVING</p><h2>Goals</h2></div><button class="add">+ New goal</button></div>
+      <div class="goal-grid">
+        <div class="panel goal"><span>💰</span><h3>Save R3,000</h3><p>R1,250 of R3,000</p><div class="bar"><i style="width:42%"></i></div><small>42% complete</small></div>
+        <div class="panel goal"><span>📚</span><h3>Improve Maths</h3><p>12 of 20 study sessions</p><div class="bar"><i style="width:60%"></i></div><small>60% complete</small></div>
+      </div>
+    </section>
+
+    <section id="achievements" class="page">
+      <div class="section-head"><div><p class="eyebrow">LEVEL UP</p><h2>Achievements</h2></div></div>
+      <div class="achievement-grid">
+        <div class="panel achievement">🔥<h3>First Streak</h3><p>Use DayGo for 5 days.</p><b>Unlocked</b></div>
+        <div class="panel achievement">🎯<h3>Goal Getter</h3><p>Create your first goal.</p><b>Unlocked</b></div>
+        <div class="panel achievement locked">🏆<h3>Perfect Day</h3><p>Complete every important task.</p><b>Locked</b></div>
+      </div>
+    </section>
+
+    <section id="profile" class="page">
+      <div class="section-head"><div><p class="eyebrow">SETTINGS</p><h2>Profile</h2></div></div>
+      <div class="panel profile"><div class="avatar"><img src="daygo-logo.png" alt="DayGo"></div><h3>DayGo User</h3><p>Level 4 · 120 XP</p><hr><label>Notifications <input type="checkbox" checked></label><label>Dark mode <input type="checkbox" checked></label></div>
+    </section>
+  </main>
+</div>
+
+<div class="customizer" id="customizer">
+  <div class="custom-box">
+    <button class="close" onclick="closeCustomizer()">×</button>
+    <p class="eyebrow">MAKE IT YOURS</p>
+    <h2>Customize DayGo</h2>
+    <p class="muted">Change the look of your DayGo dashboard.</p>
+
+    <label class="setting-label">Accent colour</label>
+    <div class="swatches">
+      <button class="swatch" style="background:#111" onclick="setAccent('#111')"></button>
+      <button class="swatch" style="background:#5b5cff" onclick="setAccent('#5b5cff')"></button>
+      <button class="swatch" style="background:#16a085" onclick="setAccent('#16a085')"></button>
+      <button class="swatch" style="background:#e67e22" onclick="setAccent('#e67e22')"></button>
+      <button class="swatch" style="background:#e84393" onclick="setAccent('#e84393')"></button>
+    </div>
+
+    <label class="setting-label">Theme</label>
+    <div class="theme-buttons">
+      <button onclick="setTheme('light')">☀ Light</button>
+      <button onclick="setTheme('dark')">🌙 Dark</button>
+      <button onclick="setTheme('system')">💻 System</button>
+    </div>
+
+    <label class="setting-label">Dashboard</label>
+    <div class="theme-buttons">
+      <button onclick="toggleCompact()">▦ Compact mode</button>
+      <button onclick="resetCustomization()">↺ Reset</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <p class="eyebrow">QUICK ADD</p><h2>Add a task</h2>
+    <input id="taskInput" placeholder="e.g. Finish Maths homework">
+    <button class="add wide" onclick="saveTask()">Add task</button>
+  </div>
+</div>
+<script src="app.js"></script><script src="pwa.js"></script>
+</body>
+</html>
